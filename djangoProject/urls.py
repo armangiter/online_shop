@@ -19,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
+    path('', include('home.urls', namespace='home')),
+    path('customer/', include('customer.urls', namespace='customer')),
     path('rosetta/', include('rosetta.urls')),
     prefix_default_language=True
 )
