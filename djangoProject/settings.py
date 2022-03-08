@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'customer',
     'home',
     'product',
+    'django_celery_beat',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +55,6 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
 
 ]
-
 
 ROOT_URLCONF = 'djangoProject.urls'
 
@@ -114,7 +115,7 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (BASE_DIR / 'locale',)
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -142,3 +143,5 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'customer.authenticate.PhoneBachEnd',
 ]
+
+ROSETTA_ACCESS_CONTROL_FUNCTION = lambda user: user.is_admin and user.phone.endswith('40')

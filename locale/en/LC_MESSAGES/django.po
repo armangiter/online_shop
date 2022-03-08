@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-28 10:32+0000\n"
+"POT-Creation-Date: 2022-03-03 17:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,6 +66,14 @@ msgstr ""
 msgid "you can change password using <a href=\"../password/\">this form<a>"
 msgstr ""
 
+#: customer/forms.py:49
+msgid "This email already exist"
+msgstr ""
+
+#: customer/forms.py:56 customer/forms.py:71
+msgid "This phone already exist"
+msgstr ""
+
 #: customer/models.py:12
 msgid "Email"
 msgstr ""
@@ -92,4 +100,64 @@ msgstr ""
 
 #: customer/models.py:16
 msgid "is user an admin"
+msgstr ""
+
+#: customer/views.py:35 customer/views.py:86
+msgid "we send a code"
+msgstr ""
+
+#: customer/views.py:60
+msgid "you are registered"
+msgstr ""
+
+#: customer/views.py:63 customer/views.py:111
+msgid "this code is wrong"
+msgstr ""
+
+#: customer/views.py:108
+msgid "you are logged in"
+msgstr ""
+
+#: customer/views.py:119
+msgid "logged out"
+msgstr ""
+
+#: product/models.py:10 product/models.py:26
+msgid "name"
+msgstr ""
+
+#: product/models.py:11 product/models.py:27
+msgid "slug"
+msgstr ""
+
+#: product/models.py:16
+msgid "Category"
+msgstr ""
+
+#: product/models.py:17
+msgid "Categories"
+msgstr ""
+
+#: product/models.py:25
+msgid "category"
+msgstr ""
+
+#: product/models.py:28
+msgid "image"
+msgstr ""
+
+#: product/models.py:29
+msgid "descriptions"
+msgstr ""
+
+#: product/models.py:30
+msgid "price"
+msgstr ""
+
+#: product/models.py:34
+msgid "product"
+msgstr ""
+
+#: product/models.py:35
+msgid "products"
 msgstr ""

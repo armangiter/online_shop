@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, OtpCode
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import gettext_lazy as _
@@ -54,6 +54,7 @@ class UserRegistrationsFrom(forms.Form):
         user = User.objects.filter(phone=phone).exists()
         if user:
             raise ValidationError(_('This phone already exist'))
+        OtpCode.objects.filter(phone=phone).delete()
         return phone
 
 

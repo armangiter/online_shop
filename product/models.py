@@ -9,6 +9,9 @@ from django.urls import reverse
 class Category(BaseModel):
     name = models.CharField(max_length=200, verbose_name=_('name'))
     slug = models.SlugField(max_length=200, unique=True, verbose_name=_('slug'))
+    root = models.ForeignKey('Category', on_delete=models.CASCADE, default=None, blank=True, null=True,
+                             related_name='sub_cat', verbose_name=_('parent category'))
+    is_sub = models.BooleanField(default=False, verbose_name=_('is a sub category'))
 
     class Meta:
         ordering = ('name',)
@@ -18,10 +21,13 @@ class Category(BaseModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('home:category_filter', args=[self.slug])
+
 
 class Product(BaseModel):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products',
-                                 verbose_name=_('category'))
+    category = models.ManyToManyField(Category, related_name='products',
+                                      verbose_name=_('category'))
     name = models.CharField(max_length=200, verbose_name=_('name'))
     slug = models.SlugField(max_length=200, unique=True, verbose_name=_('slug'))
     image = models.ImageField(upload_to='products/%Y/%m/%d', verbose_name=_('image'))

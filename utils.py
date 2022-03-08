@@ -1,13 +1,14 @@
 import json
 from requests import post
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 def send_otp_code(phone, code):
     pass
     # data = {
     #     "op": "pattern",
-    #     "user": "9373538879",
-    #     "pass": "modir15345a",
+    #     "user": "",
+    #     "pass": "",
     #     "fromNum": "3000505",
     #     "toNum": phone,
     #     "patternCode": "yrvco2gken",
@@ -18,3 +19,10 @@ def send_otp_code(phone, code):
     #     ]
     # }
     # post(url='https://ippanel.com/api/select', data=json.dumps(data))
+
+
+class IsNotAuthenticatedUserMixin(UserPassesTestMixin):
+    def test_func(self):
+        return not self.request.user.is_authenticated
+
+

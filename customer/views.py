@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import UserRegistrationsFrom, VerifyCodeForm, UserLoginForm
 import random
-from utils import send_otp_code
+from utils import send_otp_code, IsNotAuthenticatedUserMixin
 from .models import OtpCode, User
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 
-class UserRegisterView(View):
+class UserRegisterView(IsNotAuthenticatedUserMixin, View):
     form_class = UserRegistrationsFrom
     template_name = 'customer/register.html'
 
@@ -36,8 +36,11 @@ class UserRegisterView(View):
             return redirect('customer:verify_code')
         return render(request, self.template_name, {'form': form})
 
+    def test_func(self):
+        return not self.request.user.is_authenticated
 
-class UserRegisterVerifyCodeView(View):
+
+class UserRegisterVerifyCodeView(IsNotAuthenticatedUserMixin, View):
     form_class = VerifyCodeForm
 
     def get(self, request):
@@ -62,7 +65,7 @@ class UserRegisterVerifyCodeView(View):
         return redirect('home:home')
 
 
-class UserLoginView(View):
+class UserLoginView(IsNotAuthenticatedUserMixin, View):
     form_class = UserLoginForm
     template_name = 'customer/login.html'
 
@@ -85,7 +88,7 @@ class UserLoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class UserLoginVerifyView(View):
+class UserLoginVerifyView(IsNotAuthenticatedUserMixin, View):
     form_class = VerifyCodeForm
 
     def get(self, request):
@@ -99,7 +102,7 @@ class UserLoginVerifyView(View):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request, phone=user_session['phone'])
-            if cd['code'] == code_instance.code:
+            if cd['code'] == code_instance.code and user:
                 login(request, user)
                 code_instance.delete()
                 messages.success(request, _('you are logged in'), 'success')
