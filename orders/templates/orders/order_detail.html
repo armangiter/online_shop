@@ -8,27 +8,29 @@
             <th scope="col">Quantity</th>
             <th scope="col">Unit price</th>
             <th scope="col">Total price</th>
-            <th scope="col">Remove</th>
         </tr>
         </thead>
         <tbody>
-        {% for item in cart %}
+        {% for item in items %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ item.product }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price }}</td>
-                <td>{{ item.total_price }}</td>
-                <td><a href="{% url 'orders:cart_remove' item.product.id %}">remove</a></td>
+                <td>{{ item.get_cost }}</td>
             </tr>
         {% endfor %}
         <tr>
             <td>Total</td>
-            <td colspan="4"></td>
-            <td>{{ cart.get_total_price }}</td>
+            <td colspan="3"></td>
+            <td>{{ order.get_total_price }}</td>
         </tr>
 
         </tbody>
     </table>
-    <a href="{% url 'orders:create_order' %}">Checkout</a>
+    <form action="{% url 'orders:apply_code' order.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="apply code">
+    </form>
 {% endblock %}
