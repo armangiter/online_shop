@@ -34,8 +34,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -118,40 +116,45 @@
 
                         <!-- Cart -->
                         {#								<div class="dropdown">#}
-                        {#                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">#}
-                        {#                                <i class="fa fa-shopping-cart"></i>#}
-                        {#                                <span>Your Cart</span>#}
-                        {#                                <div class="qty">{{ cart|length }}</div>#}
-                        {#                            </a>#}
-                        {#                            <div class="cart-dropdown">#}
-                        {#                                <div class="cart-list">#}
-                        {#                                    {% for item in cart %}#}
-                        {#                                        <div class="product-widget">#}
-                        {#                                            <div class="product-img">#}
-                        {#                                                <img src="{{ item.product.image.url }}" alt="{{ item.product }}">#}
-                        {#                                            </div>#}
-                        {#                                            <div class="product-body">#}
-                        {#                                                <h3 class="product-name"><a href="#">{{ item.product }}</a></h3>#}
-                        {#                                                <h4 class="product-price"><span class="qty">1x</span>{{ item.price }}#}
-                        {#                                                </h4>#}
-                        {#                                            </div>#}
-                        {#                                            <button class="delete" product-id="{{ item.product.id }}"><i#}
-                        {#                                                    class="fa fa-close"></i>#}
-                        {#                                            </button>#}
-                        {#                                        </div>#}
-                        {#                                    {% endfor %}#}
+                        {#									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">#}
+                        {#										<i class="fa fa-shopping-cart"></i>#}
+                        {#										<span>Your Cart</span>#}
+                        {#										<div class="qty">3</div>#}
+                        {#									</a>#}
+                        {#									<div class="cart-dropdown">#}
+                        {#										<div class="cart-list">#}
+                        {#											<div class="product-widget">#}
+                        {#												<div class="product-img">#}
+                        {#													<img src="./img/product01.png" alt="">#}
+                        {#												</div>#}
+                        {#												<div class="product-body">#}
+                        {#													<h3 class="product-name"><a href="#">product name goes here</a></h3>#}
+                        {#													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>#}
+                        {#												</div>#}
+                        {#												<button class="delete"><i class="fa fa-close"></i></button>#}
+                        {#											</div>#}
                         {##}
-                        {#                                </div>#}
-                        {#                                <div class="cart-summary">#}
-                        {#                                    <small>{{ cart|length }} Item(s) selected</small>#}
-                        {#                                    <h5>SUBTOTAL: {{ cart.get_total_price }}</h5>#}
-                        {#                                </div>#}
-                        {#                                <div class="cart-btns">#}
-                        {#                                    <a href="{% url 'orders:cart' %}">View Cart</a>#}
-                        {#                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>#}
-                        {#                                </div>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
+                        {#											<div class="product-widget">#}
+                        {#												<div class="product-img">#}
+                        {#													<img src="./img/product02.png" alt="">#}
+                        {#												</div>#}
+                        {#												<div class="product-body">#}
+                        {#													<h3 class="product-name"><a href="#">product name goes here</a></h3>#}
+                        {#													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>#}
+                        {#												</div>#}
+                        {#												<button class="delete"><i class="fa fa-close"></i></button>#}
+                        {#											</div>#}
+                        {#										</div>#}
+                        {#										<div class="cart-summary">#}
+                        {#											<small>3 Item(s) selected</small>#}
+                        {#											<h5>SUBTOTAL: $2940.00</h5>#}
+                        {#										</div>#}
+                        {#										<div class="cart-btns">#}
+                        {#											<a href="#">View Cart</a>#}
+                        {#											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>#}
+                        {#										</div>#}
+                        {#									</div>#}
+                        {#								</div>#}
                         <!-- /Cart -->
 
                         <!-- Menu Toogle -->
@@ -205,10 +208,10 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
-                <h3 class="breadcrumb-header">Checkout</h3>
+                <h3 class="breadcrumb-header">Regular Page</h3>
                 <ul class="breadcrumb-tree">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Checkout</li>
+                    <li class="active">Blank</li>
                 </ul>
             </div>
         </div>
@@ -224,169 +227,27 @@
     <div class="container">
         <!-- row -->
         <div class="row">
-
-            <div class="col-md-7">
-                <!-- Billing Details -->
-                <div class="billing-details">
-                    <div class="section-title">
-                        <h3 class="title">USER address</h3>
+            {% for item in cart %}
+                <div class="product col-5">
+                    <div class="product-img">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                        <div class="product-label">
+                            {#                                            <span class="sale">-30%</span>#}
+                            <span class="new">NEW</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input class="input" type="text" name="full_name" value="{{ request.user.full_name }}">
-                    </div>
-                    <div class="form-group">
-                        <input class="input" type="email" name="email" value="{{ request.user.phone }}">
-                    </div>
-                    <div class="form-group">
-                        <input class="input" type="text" name="address" value="{{ address.text }}">
-                    </div>
-                    <div class="form-group">
-                        <input class="input" type="text" name="city" value="{{ address.city }}">
-                    </div>
-                    <div class="form-group">
-                        <input class="input" type="text" name="zip-code" placeholder="{{ address.postal_code }}">
-                    </div>
-                    <div class="form-group">
-
+                    <div class="product-body">
+                        {#                                        <p class="product-category">Category</p>#}
+                        <h3 class="product-name"><a
+                                href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></h3>
+                        <h4 class="product-price">{{ item.price }}
+                            <del class="product-old-price">{{ item.price }}</del>
+                        </h4>
                     </div>
                 </div>
-                <!-- /Billing Details -->
 
-                <!-- Shiping Details -->
-                <div class="shiping-details">
-                    <div class="section-title">
-                        <h3 class="title">Shiping address</h3>
-                    </div>
-                    <div class="input-checkbox">
-                        <input type="checkbox" id="shiping-address">
-                        <label for="shiping-address">
-                            <span></span>
-                            Ship to a diffrent address?
-                        </label>
-                        <div class="caption">
-                            <div class="form-group">
-                                <input class="input" type="text" name="first-name" placeholder="First Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="last-name" placeholder="Last Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="address" placeholder="Address">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Shiping Details -->
+            {% endfor %}
 
-                <!-- Order notes -->
-                <div class="order-notes">
-                    <textarea class="input" placeholder="Order Notes"></textarea>
-                </div>
-                <!-- /Order notes -->
-            </div>
-
-            <!-- Order Details -->
-            {% if request.user.is_authenticated %}
-                <div class="col-md-5 order-details">
-                    <div class="section-title text-center">
-                        <h3 class="title">Your Order</h3>
-                    </div>
-                    <div class="order-summary">
-                        <div class="order-col">
-                            <div><strong>PRODUCT</strong></div>
-                            <div><strong>TOTAL</strong></div>
-                        </div>
-                        <div class="order-products">
-                            {% for item in items %}
-                                <div class="order-col">
-                                    <div>
-                                        <div item-id="{{ item.id }}">{{ item.product.name }} | <input type="number"
-                                                                                                      name="quantity"
-                                                                                                      value="{{ item.quantity }}"
-                                                                                                      min="1"> | <a
-                                                style="color: red ; cursor: pointer" class="delete-key">Delete</a>
-                                        </div>
-                                    </div>
-                                    <div>{{ item.get_cost }}</div>
-                                </div>
-                            {% endfor %}
-
-                        </div>
-                        <div class="order-col">
-                            <div>Shiping</div>
-                            <div><strong>FREE</strong></div>
-                        </div>
-                        <div class="order-col">
-                            <div><strong>TOTAL</strong></div>
-                            <div><strong class="order-total">{{ order.get_total_price }}</strong></div>
-                        </div>
-                    </div>
-                    <form action="{% url 'orders:apply_code' order.id %}" method="post">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="apply code">
-                    </form>
-                    <div class="payment-method">
-                        <div class="input-radio">
-                            <input type="radio" name="payment" id="payment-1">
-                            <label for="payment-1">
-                                <span></span>
-                                Direct Bank Transfer
-                            </label>
-                            <div class="caption">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="input-radio">
-                            <input type="radio" name="payment" id="payment-2">
-                            <label for="payment-2">
-                                <span></span>
-                                Cheque Payment
-                            </label>
-                            <div class="caption">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="input-radio">
-                            <input type="radio" name="payment" id="payment-3">
-                            <label for="payment-3">
-                                <span></span>
-                                Paypal System
-                            </label>
-                            <div class="caption">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-checkbox">
-                        <input type="checkbox" id="terms">
-                        <label for="terms">
-                            <span></span>
-                            I've read and accept the <a href="#">terms & conditions</a>
-                        </label>
-                    </div>
-                    <a href="#" class="primary-btn order-submit">Place order</a>
-                </div>
-            {% endif %}
-            <!-- /Order Details -->
         </div>
         <!-- /row -->
     </div>
@@ -519,6 +380,8 @@
                                                                                 target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
+
+
                 </div>
             </div>
             <!-- /row -->
@@ -536,40 +399,6 @@
 <script src="{% static 'js/nouislider.min.js' %}"></script>
 <script src="{% static 'js/jquery.zoom.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-<script>
-    $('input[name=quantity]').on('change', function () {
-        let count = $(this).val()
-        let item_id = $(this).parent().attr('item-id')
 
-        $.ajax({
-            method: 'PATCH',
-            url: "{% url 'orders:order_item' 0 %}".replace('0', item_id),
-            data: {
-                'quantity': count
-            },
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            success: function () {
-                location.reload()
-            }
-        })
-    })
-
-    $('a[class=delete-key]').on('click', function () {
-        let parent = $(this).parent()
-        let item_id = parent.attr('item-id')
-        $.ajax({
-            type: 'DELETE',
-            url: "{% url 'orders:order_item' 0 %}".replace('0', item_id),
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            success: function () {
-                location.reload()
-            }
-        })
-    })
-</script>
 </body>
 </html>

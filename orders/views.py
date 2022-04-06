@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.views import View
 from .cart import Cart
 from product.models import Product
 from .forms import CartAddForm, OofCodeForm
-
+from .models import Address
 # Create your views here.
 from .models import Order, OrderItem, OofCode
 
@@ -12,17 +12,16 @@ class CartView(View):
     def get(self, request):
         cart = Cart(request)
         form = OofCodeForm()
-        return render(request, 'orders/cart.html', {'cart': cart, 'form': form})
+        return render(request, 'cart.html', {'cart': cart, 'form': form})
 
 
 class CartAddView(View):
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
-        form = CartAddForm(request.POST)
-        if form.is_valid():
-            cart.add(product, form.cleaned_data['quantity'])
-        return redirect('orders:cart')
+        if product:
+            cart.add(product, int(request.POST['quantity']))
+        return HttpResponse({'redirect': redirect('home:home').url})
 
 
 class CartRemoveView(View):
@@ -41,8 +40,9 @@ class OrderCreate(View):
             OrderItem.objects.create(order=order, product=item['product'], price=item['price'],
                                      quantity=item['quantity'])
         cart.clear()
-
-        return redirect('home:home')
+        items = order.items.all()
+        form = OofCodeForm()
+        return redirect('orders:order_detail', order_id=order.id)
 
 
 class OofCodeApply(View):
@@ -60,15 +60,16 @@ class OofCodeApply(View):
 class OrdersView(View):
     def get(self, request):
         orders = Order.objects.filter(user=request.user, is_deleted=False)
-        return render(request, 'orders/orders.html', {'orders': orders})
+        return render(request, 'orders.html', {'orders': orders})
 
 
 class OrderDetail(View):
     def get(self, request, order_id):
-        order = Order.objects.get(id=order_id, is_deleted=False)
+        order = Order.objects.get(id=order_id, is_deleted=False, checkout=False, user=request.user)
         items = order.items.all()
         form = OofCodeForm()
-        return render(request, 'orders/order_detail.html', {"order": order, 'form': form, 'items': items})
+        address = Address.objects.get(user=request.user)
+        return render(request, 'checkout.html', {"order": order, 'form': form, 'items': items, 'address': address})
 
 
 class OrderRemoveView(View):

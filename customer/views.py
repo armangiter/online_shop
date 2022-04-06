@@ -14,7 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 class UserRegisterView(IsNotAuthenticatedUserMixin, View):
     form_class = UserRegistrationsFrom
-    template_name = 'customer/register.html'
+    template_name = 'register.html'
 
     def get(self, request):
         form = self.form_class
@@ -45,7 +45,7 @@ class UserRegisterVerifyCodeView(IsNotAuthenticatedUserMixin, View):
 
     def get(self, request):
         form = self.form_class
-        return render(request, 'customer/verify.html', {'form': form})
+        return render(request, 'code.html', {'form': form})
 
     def post(self, request):
         user_session = request.session['user_registrations_info']
@@ -67,11 +67,11 @@ class UserRegisterVerifyCodeView(IsNotAuthenticatedUserMixin, View):
 
 class UserLoginView(IsNotAuthenticatedUserMixin, View):
     form_class = UserLoginForm
-    template_name = 'customer/login.html'
+    template_name = 'login.html'
 
     def get(self, request):
         form = self.form_class
-        return render(request, 'customer/login.html', {'form': form})
+        return render(request, 'login.html', {'form': form})
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -93,7 +93,7 @@ class UserLoginVerifyView(IsNotAuthenticatedUserMixin, View):
 
     def get(self, request):
         form = self.form_class
-        return render(request, 'customer/verify.html', {'form': form})
+        return render(request, 'code.html', {'form': form})
 
     def post(self, request):
         user_session = request.session['user_phone']
@@ -110,7 +110,7 @@ class UserLoginVerifyView(IsNotAuthenticatedUserMixin, View):
             else:
                 messages.error(request, _('this code is wrong'), 'danger')
                 return redirect('customer:verify_code')
-        return render(request, 'customer/verify.html', {'form': form})
+        return render(request, 'code.html', {'form': form})
 
 
 class UserLogoutView(LoginRequiredMixin, View):

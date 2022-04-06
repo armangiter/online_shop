@@ -1,14 +1,16 @@
 from django.db import models
 from core.models import BaseModel
 # Create your models here.
-from customer.models import User
+from customer.models import User, Address
 from product.models import Product
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Order(BaseModel):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='orders')
+    user_address = models.ForeignKey(to=Address, on_delete=models.CASCADE, default=None, null=True)
     paid = models.BooleanField(default=False)
+    checkout = models.BooleanField(default=False)
     discount = models.IntegerField(blank=True, null=True, default=None)
 
     class Meta:

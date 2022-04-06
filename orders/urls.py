@@ -13,5 +13,4 @@ urlpatterns = [
     path('order/detail/<int:order_id>', views.OrderDetail.as_view(), name='order_detail'),
     path('order/remove/<int:order_id>', views.OrderRemoveView.as_view(), name='order_remove'),
     path('orderitem/<int:pk>', api.OrderItemView.as_view(), name='order_item'),
-    path('order/<int:pk>', api.OrderView.as_view(), name='order'),
 ]
